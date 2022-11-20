@@ -12,11 +12,12 @@ const welcome = (req, res) => {
 app.get("/", welcome);
 
 const knightHandlers = require("./knightHandlers")
+const {validateKnight} = require("./validateKnight")
 
 app.get("/api/knights", knightHandlers.getKnights)
 app.get("/api/knights/:id", knightHandlers.getKnightById)
-app.post("/api/knights", knightHandlers.addKnight)
-app.put("/api/knights/:id", knightHandlers.updateKnightById)
+app.post("/api/knights", validateKnight, knightHandlers.addKnight)
+app.put("/api/knights/:id", validateKnight, knightHandlers.updateKnightById)
 app.delete("/api/knights/:id", knightHandlers.deleteKnightById)
 
 app.listen(port, (err) => {
